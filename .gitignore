@@ -1,3 +1,4 @@
+# Frontend
 .DS_Store
 frontend/node_modules
 frontend/dist
@@ -21,3 +22,11 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Backend
+backend/env
+backend/dictionary/__pycache__/
+backend/configure_api/__pycache__/
+backend/configure_api/migrations/
+backend/word_api/__pycache__/
+backend/word_api/migrations/
