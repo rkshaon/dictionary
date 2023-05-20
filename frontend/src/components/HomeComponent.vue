@@ -1,13 +1,18 @@
 <template>
-    <NavBarComponent />
+    <div class="row mt-3">
+        <div class="col-6">
+            <SearchBarComponent />
+        </div>
+        <div class="col-6">add</div>
+    </div>
 </template>
 
 <script>
-import NavBarComponent from './NavBarComponent.vue';
+import SearchBarComponent from './SearchBarComponent.vue';
 
 export default {
     name: 'HomeComponent',
-    components: {NavBarComponent},
+    components: { SearchBarComponent },
 }
 </script>
 
