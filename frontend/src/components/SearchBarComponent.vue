@@ -36,10 +36,9 @@ export default ({
     },
     methods: {
         fetchLanguages() {
-            // axios.get(`${process.env.BACKEND_BASE_URL}/configure-api/languages`)
-            axios.get('http://10.10.10.84:8000/configure-api/languages')
+            axios.get(`http://10.10.10.84:8000/configure-api/languages`)
                 .then(response => {
-                    console.log(response);
+                    this.languages = response.data;
                 })
                 .catch(error => {
                     console.log('Error fetching languages: ', error);
