@@ -1,14 +1,14 @@
 <template>
     <div class="row mb-3">
         <div class="col-6">
-            <label for="exampleInputEmail1" class="form-label">Base</label>
+            <label for="language" class="form-label">Base</label>
             <select class="form-select" aria-label="Default select example">
                 <option selected>English</option>
                 <option value="1">One</option>
             </select>
         </div>
         <div class="col-6">
-            <label for="exampleInputEmail1" class="form-label">Secondary</label>
+            <label for="language" class="form-label">Secondary</label>
             <select class="form-select" aria-label="Default select example">
                 <option selected>Bengali</option>
                 <option value="1">One</option>
@@ -22,7 +22,29 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default ({
     name: 'SearchBarComponent',
+    data() {
+        return {
+            languages: [],
+        }
+    },
+    mounted() {
+        this.fetchLanguages();
+    },
+    methods: {
+        fetchLanguages() {
+            // axios.get(`${process.env.BACKEND_BASE_URL}/configure-api/languages`)
+            axios.get('http://10.10.10.84:8000/configure-api/languages')
+                .then(response => {
+                    console.log(response);
+                })
+                .catch(error => {
+                    console.log('Error fetching languages: ', error);
+                })
+        }
+    }
 })
 </script>

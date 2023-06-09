@@ -3,7 +3,7 @@
         <div class="col-6">
             <SearchBarComponent />
         </div>
-        <div class="col-6">add</div>
+        <div class="col-6" style="background-color: bisque;">add</div>
     </div>
 </template>
 
