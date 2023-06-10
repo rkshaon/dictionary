@@ -23,6 +23,7 @@
 
 <script>
 import axios from 'axios';
+import { mapGetters } from 'vuex';
 
 export default ({
     name: 'SearchBarComponent',
@@ -31,6 +32,9 @@ export default ({
             languages: [],
         }
     },
+    computed: {
+        ...mapGetters(['getLanguages'])
+    },
     mounted() {
         this.fetchLanguages();
     },
@@ -38,7 +42,10 @@ export default ({
         fetchLanguages() {
             axios.get(`http://10.10.10.84:8000/configure-api/languages`)
                 .then(response => {
-                    this.languages = response.data;
+                    // this.languages = response.data;
+                    // this.$store.commit('setLanguages', response.data);
+                    commit('setLanguages', response.data);
+                    console.log('Response data: ', response.data);
                 })
                 .catch(error => {
                     console.log('Error fetching languages: ', error);
