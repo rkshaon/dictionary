@@ -44,8 +44,9 @@ export default ({
                 .then(response => {
                     // this.languages = response.data;
                     // this.$store.commit('setLanguages', response.data);
-                    commit('setLanguages', response.data);
+                    // commit('setLanguages', response.data);
                     console.log('Response data: ', response.data);
+                    this.$store.commit('setLanguages', response.data);
                 })
                 .catch(error => {
                     console.log('Error fetching languages: ', error);

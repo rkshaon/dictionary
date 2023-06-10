@@ -10,7 +10,7 @@ const store = createStore({
     }
   },
   actions: {
-    fetchLanguages({ commit }) {
+    fetchLanguages() {
       // Replace with your API call to fetch languages
       // Example: axios.get('http://api.example.com/languages')
       // Then, call commit('setLanguages', response.data) to update the state
