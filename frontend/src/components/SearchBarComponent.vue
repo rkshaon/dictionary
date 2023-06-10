@@ -1,17 +1,15 @@
 <template>
     <div class="row mb-3">
         <div class="col-6">
-            <label for="language" class="form-label">Base</label>
-            <select class="form-select" aria-label="Default select example">
-                <option selected>English</option>
-                <option value="1">One</option>
+            <label for="baseLanguage" class="form-label">Base</label>
+            <select class="form-select" aria-label="Default select example" v-model="baseLanguage">
+                <option v-for="language in languages" :key="language.id" :value="language.id">{{ language.name }}</option>
             </select>
         </div>
         <div class="col-6">
-            <label for="language" class="form-label">Secondary</label>
-            <select class="form-select" aria-label="Default select example">
-                <option selected>Bengali</option>
-                <option value="1">One</option>
+            <label for="secondaryLanguage" class="form-label">Secondary</label>
+            <select class="form-select" aria-label="Default select example" v-model="secondaryLanguage">
+                <option v-for="language in languages" :key="language.id" :value="language.id">{{ language.name }}</option>
             </select>
         </div>
     </div>
@@ -29,29 +27,48 @@ export default ({
     name: 'SearchBarComponent',
     data() {
         return {
-            languages: [],
+            baseLanguage: '',
+            secondaryLanguage: '',
         }
     },
     computed: {
-        ...mapGetters(['getLanguages'])
+        ...mapGetters(['getLanguages']),
+        languages() {
+            return this.getLanguages;
+        },
     },
     mounted() {
         this.fetchLanguages();
     },
+    watch: {
+        getLanguages: {
+            immediate: true,
+            handler(languages) {
+                if (languages.length > 0) {
+                    this.baseLanguage = this.getLanguageIdByName('English');
+                    this.secondaryLanguage = this.getLanguageIdByName('Bengali');
+                }
+            },
+        },
+    },
     methods: {
         fetchLanguages() {
             axios.get(`http://10.10.10.84:8000/configure-api/languages`)
-                .then(response => {
-                    // this.languages = response.data;
-                    // this.$store.commit('setLanguages', response.data);
-                    // commit('setLanguages', response.data);
-                    console.log('Response data: ', response.data);
-                    this.$store.commit('setLanguages', response.data);
-                })
-                .catch(error => {
-                    console.log('Error fetching languages: ', error);
-                })
-        }
+            .then(response => {
+                this.$store.commit('setLanguages', response.data);
+
+            })
+            .catch(error => {
+                console.log('Error fetching languages: ', error);
+            })
+        },
+        getLanguageIdByName(name) {
+            if (this.languages) {
+                const language = this.languages.find(language => language.name === name);
+                return language ? language.id : '';
+            }
+            return '';
+        },
     }
 })
 </script>
